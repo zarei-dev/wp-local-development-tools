@@ -3,7 +3,10 @@
 Bunch of tools that usefull for WP with stage mode.
 
 ## Usage
-open wp-local-development-tools.php and change your stage domain
+open wp-config.php and add this line before line "That's all, stop editing! Happy publishing"
+```php
+define( 'WP_PRODUCTION_DOMAIN', 'https://production_domain.com' );
+```
 
 
 ## Contributing
