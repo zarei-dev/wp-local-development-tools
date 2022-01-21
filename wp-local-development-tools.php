@@ -10,7 +10,7 @@
 
 add_filter( 'wp_get_attachment_url', function ($url, $post_id) {
     // replace with your stage domain
-    $url = str_ireplace(get_home_url(), 'https://example.com/', $url);
+    $url = str_ireplace(get_home_url(), get_production_domain(), $url);
 
     return $url;
 }, 10, 200 );
@@ -35,4 +35,17 @@ if (!function_exists('write_log')) {
             }
         }
     }
+}
+
+
+if ( !function_exists( 'get_production_domain' ) ) {
+
+    function get_production_domain() {
+        if (defined( 'WP_PRODUCTION_DOMAIN' )) {
+            return WP_PRODUCTION_DOMAIN;
+        }
+
+        return 'https://example.com';
+    }
+
 }
