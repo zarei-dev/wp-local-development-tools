@@ -9,7 +9,12 @@
  */
 
 add_filter( 'wp_get_attachment_url', function ($url, $post_id) {
-    // replace with your stage domain
+
+    $is_staging = get_post_meta( $post_id, 'staging' );
+    if ( isset($is_staging[0]) && $is_staging[0] == 'yes') {
+        return $url;
+    }
+
     $url = str_ireplace(get_home_url(), get_production_domain(), $url);
 
     return $url;
@@ -36,6 +41,11 @@ if (!function_exists('write_log')) {
         }
     }
 }
+
+
+add_action( 'add_attachment', function ( $post_ID ) {
+    add_post_meta( $post_ID, 'staging', 'yes' );
+});
 
 
 if ( !function_exists( 'get_production_domain' ) ) {
