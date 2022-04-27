@@ -10,6 +10,10 @@
 
 add_filter( 'wp_get_attachment_url', function ($url, $post_id) {
 
+    if ( !get_production_domain() ) {
+        return $url;
+    }
+
     $is_staging = get_post_meta( $post_id, 'staging' );
     if ( isset($is_staging[0]) && $is_staging[0] == 'yes') {
         return $url;
@@ -48,10 +52,13 @@ add_action( 'add_attachment', function ( $post_ID ) {
 });
 
 
-if ( !function_exists( 'get_production_domain' ) && defined( 'WP_PRODUCTION_DOMAIN' ) ) {
+if ( !function_exists( 'get_production_domain' ) ) {
 
     function get_production_domain() {
-        return WP_PRODUCTION_DOMAIN;
+        if (defined( 'WP_PRODUCTION_DOMAIN' )) {
+            return WP_PRODUCTION_DOMAIN;
+        }
+        return false;
     }
 
 }
