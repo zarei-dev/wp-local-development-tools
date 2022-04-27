@@ -48,14 +48,10 @@ add_action( 'add_attachment', function ( $post_ID ) {
 });
 
 
-if ( !function_exists( 'get_production_domain' ) ) {
+if ( !function_exists( 'get_production_domain' ) && defined( 'WP_PRODUCTION_DOMAIN' ) ) {
 
     function get_production_domain() {
-        if (defined( 'WP_PRODUCTION_DOMAIN' )) {
-            return WP_PRODUCTION_DOMAIN;
-        }
-
-        return 'https://example.com';
+        return WP_PRODUCTION_DOMAIN;
     }
 
 }
