@@ -4,7 +4,7 @@
  * Description:         Bunch of tools that usefull for WP with stage mode
  * Version:             0.0.1
  * Author:              Mohammad Zarei
- * Author URI:          https://moza.dev/
+ * Author URI:          https://zareidev.ir
  * License:             GPL v3
  */
 
