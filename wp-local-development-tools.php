@@ -47,6 +47,19 @@ if (!function_exists('write_log')) {
 }
 
 
+
+add_filter('the_content', function ($content) {
+    if (!get_production_domain()) {
+        return $content;
+    }
+
+    $pattern = "/(src=['\"])(https?:\/\/)([^\/']+)(\/wp-content\/uploads\/[^\s'\"?#]+)(['\"])/i";
+    $replacement = '$1' . get_production_domain() . '$4$5';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
+});
+
+
 add_action( 'add_attachment', function ( $post_ID ) {
     add_post_meta( $post_ID, 'staging', 'yes' );
 });
